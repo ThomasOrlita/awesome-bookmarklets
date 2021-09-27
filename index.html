@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css" integrity="sha512-Oy18vBnbSJkXTndr2n6lDMO5NN31UljR8e/ICzVPrGpSud4Gkckb8yUpqhKuUNoE+o9gAb4O/rAxxw1ojyUVzg==" crossorigin="anonymous">
+  <title>Bookmarklets for developers</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔖</text></svg>">
+  <style>
+    body {
+      box-sizing: border-box;
+      min-width: 16em;
+      max-width: 64em;
+      margin: 0 auto;
+      padding: 2.5em;
+    }
+    a[href^=javascript], a[href^=data] {
+      font-family: monospace;
+    }
+    .markdown-body hr {
+      margin: 4em 0;
+    }
+    @media (prefers-color-scheme: dark) {
+      html {
+        color-scheme: dark;
+        background-color: #181a1b;
+      }
+      .markdown-body {
+        color: #cecac3;
+      }
+      .markdown-body h1, .markdown-body h2 {
+        border-bottom-color: #353a3c;
+      }
+      .markdown-body pre {
+        background-color: #272a2c;
+      }
+      .markdown-body hr {
+        background-color: #272a2c;
+      }
+      .markdown-body a {
+        color: #4cacfc;
+      }
+      .markdown-body .anchor .octicon-link::before {
+        filter: invert(1);
+      }
+    }
+  </style>
+  
+</head>
+<body class="markdown-body">
+<article>
+<h1 id="bookmarklets-for-developers">Bookmarklets for developers</h1>
+<p>A bookmarklet is a bookmark that instead of storing a URL to a page stores JavaScript code that can be executed on a page. To save a bookmarklet, either drag it to the bookmarks bar or create a new bookmark with the <code>javascript:...</code> code as the URL.</p>
+<p>You can try a bookmarklet directly by clicking it on this page. Or by copy&amp;pasting it into the address bar, but you will have to readd the <code>javascript:</code> part in the beginning as it is stripped for security reasons.</p>
+<hr />
+<h2 id="text-transform-bookmarklets">Text transform bookmarklets</h2>
+<p>These bookmarklets transform a text taken as input and do not load any external resources.</p>
+<h3 id="atob-base64-to-text">AtoB: base64 to text</h3>
+<pre><code>javascript: void(() =&gt; {
+    try {
+        prompt(&#39;Decoded text:&#39;, atob(prompt(&#39;Decode base64:&#39;) ?? (function() {
+            throw null;
+        }())))
+    } catch (e) {
+        e &amp;&amp; alert(e);
+    }
+})()</code></pre>
+<h3 id="btoa-base64-to-text">BtoA: base64 to text</h3>
+<pre><code>javascript: void(() =&gt; {
+    try {
+        prompt(&#39;Encoded text:&#39;, btoa(prompt(&#39;Encode text as base64:&#39;) ?? (function() {
+            throw null;
+        }())))
+    } catch (e) {
+        e &amp;&amp; alert(e);
+    }
+})()</code></pre>
+<h3 id="remove-all-newlines">Remove all newlines</h3>
+<pre><code>javascript: void(() =&gt; {
+    try {
+        prompt(&#39;Text without newlines:&#39;, (prompt(&#39;Remove newlines (\\n and \\r):&#39;) ?? function() {
+            throw null
+        }()).replaceAll(&#39;\n&#39;, &#39;&#39;).replaceAll(&#39;\r&#39;, &#39;&#39;))
+    } catch (e) {
+        e &amp;&amp; alert(e)
+    }
+})();</code></pre>
+<h3 id="decode-uri-component">Decode URI Component</h3>
+<pre><code>javascript: void(() =&gt; {
+    try {
+        prompt(&#39;Decoded text:&#39;, decodeURIComponent(prompt(&#39;Decode URI Component:&#39;) ?? (function(){throw null;}())))
+    } catch (e) {
+        e &amp;&amp; alert(e);
+    }
+})()</code></pre>
+<h3 id="encode-uri-component">Encode URI Component</h3>
+<pre><code>javascript: void(() =&gt; {
+    try {
+        prompt(&#39;Decoded text:&#39;, encodeURIComponent(prompt(&#39;Encode URI Component:&#39;) ?? (function(){throw null;}())))
+    } catch (e) {
+        e &amp;&amp; alert(e);
+    }
+})()</code></pre>
+<h3 id="generate-random-uuid">Generate random UUID</h3>
+<pre><code>javascript: void(() =&gt; {prompt(&#39;UUID:&#39;, self.crypto.randomUUID())})()</code></pre>
+<h3 id="generate-random-number">Generate random number</h3>
+<pre><code>javascript: void(() =&gt; {
+    const buffer = new Uint32Array(1);
+    self.crypto.getRandomValues(buffer);
+    const min = Math.ceil(parseInt(prompt(&#39;Min value:&#39;)));
+    const max = Math.floor(parseInt(prompt(&#39;Max value:&#39;)));
+    prompt(&#39;Random value between &#39; + min + &#39; and &#39; + max + &#39; (inclusive):&#39;, Math.floor(buffer[0] / (0xffffffff + 1) * (max - min + 1)) + min);
+})()</code></pre>
+<h3 id="length-of-string">Length of string</h3>
+<pre><code>javascript: void(() =&gt; {alert(prompt(&#39;Input:&#39;).length)})()</code></pre>
+<h3 id="replace-all-occurrences-of-a-string">Replace all occurrences of a string</h3>
+<pre><code>javascript: void(() =&gt; {
+    prompt(&#39;Replaced output:&#39;, prompt(&#39;Input:&#39;).replaceAll(prompt(&#39;String to replace:&#39;), prompt(&#39;Replace with:&#39;)))
+})()</code></pre>
+<hr />
+<h2 id="local-bookmarklets">Local bookmarklets</h2>
+<p>These bookmarklets modify the content of the page and do not load any external resources.</p>
+<h3 id="update-page-title">Update page title</h3>
+<pre><code>javascript:void(document.title=prompt(&#39;Enter page title&#39;) ?? document.title)</code></pre>
+<h3 id="reload-page-in-x-seconds">Reload page in x seconds</h3>
+<pre><code>javascript:setTimeout(()=&gt;location.reload(), prompt(&#39;Reload the page in seconds:&#39;)*1000)</code></pre>
+<h3 id="rotate-images">Rotate images</h3>
+<pre><code>javascript:var orientation = prompt(&#39;Rotate by degrees (90,180,270...):&#39;);
+[...document.querySelectorAll(&#39;img&#39;)].forEach(el =&gt; el.style.transform = &#39;rotate(&#39; + (parseInt(orientation)) + &#39;deg)&#39;)</code></pre>
+<h3 id="contenteditable">contentEditable</h3>
+<pre><code>javascript:void(document.body.contentEditable=true)</code></pre>
+<h3 id="dark-color-scheme">Dark color scheme</h3>
+<pre><code>javascript:void(document.documentElement.style.colorScheme=&#39;dark&#39;)</code></pre>
+<h3 id="evaluate-javascript-code">Evaluate JavaScript code</h3>
+<pre><code>javascript: void(() =&gt; {
+    try {
+        alert(eval(prompt(&#39;JavaScript code to evaluate:&#39;) ?? (function(){throw null;}())))
+    } catch (e) {
+        e &amp;&amp; alert(e);
+    }
+})()</code></pre>
+<h3 id="get-documents-current-html-source">Get document’s current HTML source</h3>
+<pre><code>javascript: void(() =&gt; {prompt(&#39;Document outer HTML:&#39;,document.documentElement.outerHTML)})()</code></pre>
+<h3 id="open-native-eye-dropper">Open native eye dropper</h3>
+<pre><code>javascript: void(async () =&gt; {
+    try {
+        prompt(&#39;Selected HEX color:&#39;, (await new EyeDropper().open()).sRGBHex);
+    } catch (e) {
+        alert(e);
+    }
+})()</code></pre>
+<h3 id="get-user-agent">Get user agent</h3>
+<pre><code>javascript: void(() =&gt; {prompt(&#39;User agent:&#39;, navigator.userAgent)})()</code></pre>
+<h3 id="search-selection-using-a-search-engine">Search selection using a search engine</h3>
+<pre><code>javascript: void(() =&gt; {
+    open(&#39;https://google.com/search?q=&#39; + encodeURIComponent(getSelection().toString().length === 0 ? prompt(&#39;Query to search:&#39;) ?? (function() {throw null;}()) : getSelection().toString()));
+})()</code></pre>
+<h3 id="search-selection-using-a-search-enging-only-on-the-current-domain">Search selection using a search enging only on the current domain</h3>
+<pre><code>javascript: void(() =&gt; {
+    open(&#39;https://google.com/search?q=site:&#39; + location.hostname + &#39; &#39; + encodeURIComponent(getSelection().toString().length === 0 ? prompt(&#39;Query to search on &#39; + location.hostname + &#39;:&#39;) ?? (function() {throw null;}()) : getSelection().toString()));
+})();</code></pre>
+<h3 id="change-password-inputs-to-plaintext">Change password inputs to plaintext</h3>
+<pre><code>javascript: (() =&gt; {document.querySelectorAll(&#39;input[type=password]&#39;).forEach(el =&gt; el.type = &#39;text&#39;)})();</code></pre>
+<h3 id="open-lightdark-themed-textpad">Open light/dark themed textpad</h3>
+<pre><code>data:text/html,&lt;title&gt;Textpad&lt;/title&gt;&lt;style&gt;@media (prefers-color-scheme: dark){html {color-scheme: dark;}}&lt;/style&gt;&lt;body contenteditable spellcheck=&quot;false&quot;&gt;</code></pre>
+<hr />
+<h2 id="external-page-bookmarklets">External page bookmarklets</h2>
+<p>These bookmarklets open an external site with some information from the current page.</p>
+<h3 id="create-a-qr-code-of-the-current-page">Create a QR code of the current page</h3>
+<pre><code>javascript: void(
+    open(&#39;https://chart.apis.google.com/chart?cht=qr&amp;chs=300x300&amp;chld=L|2&amp;chl=&#39; + encodeURIComponent(location.href), null, &#39;location=no,status=yes,menubar=no,scrollbars=no,resizable=yes,width=500,height=500,modal=yes,dependent=yes&#39;)
+);</code></pre>
+<h3 id="create-a-qr-code-from-text">Create a QR code from text</h3>
+<pre><code>javascript: void(() =&gt; {
+    open(&#39;https://chart.apis.google.com/chart?cht=qr&amp;chs=300x300&amp;chld=L|2&amp;chl=&#39; + (prompt(&#39;Enter text for QR code:&#39;) ?? (function() {
+        throw null;
+    }())), null, &#39;location=no,status=yes,menubar=no,scrollbars=no,resizable=yes,width=500,height=500,modal=yes,dependent=yes&#39;)
+})();</code></pre>
+<h3 id="open-alexa-site-info">Open Alexa Site Info</h3>
+<pre><code>javascript:void(open(&#39;https://www.alexa.com/siteinfo/&#39; + location.hostname));</code></pre>
+<h3 id="open-this-page-in-web-archive">Open this page in Web Archive</h3>
+<pre><code>javascript:void(open(&#39;https://web.archive.org/web/*/&#39; + encodeURIComponent(location.href)));</code></pre>
+<h3 id="open-this-page-in-archiveis">Open this page in archive.is</h3>
+<pre><code>javascript:void(open(&#39;https://archive.is/search/?q=&#39; + encodeURIComponent(location.href)));</code></pre>
+<h3 id="open-this-page-in-google-web-cache">Open this page in Google Web Cache</h3>
+<pre><code>javascript:void(open(&#39;https://google.com/search?q=cache:&#39; + encodeURIComponent(location.href)));</code></pre>
+<h3 id="google-page-speed-test">Google Page Speed Test</h3>
+<pre><code>javascript:void(open(&#39;https://developers.google.com/speed/pagespeed/insights/?url=&#39; + encodeURIComponent(location.href)));</code></pre>
+<h3 id="is-it-down">Is it down?</h3>
+<pre><code>javascript:void(open(&#39;https://downforeveryoneorjustme.com/&#39; + location.hostname));</code></pre>
+<hr />
+<h2 id="remote-script-bookmarklets">Remote script bookmarklets</h2>
+<p>⚠ These bookmarklets modify the content of the page using an external script. Make sure you trust and understand the source code before running it on a sensitive website.</p>
+<p>All the bookmarklets below load remote scripts with a subresource integrity check. This means if the content of the external script changes, the script won’t load.</p>
+<p>The following bookmarklets won’t work on pages with a Content Security Policy that blocks external scripts.</p>
+<h3 id="mobile-devtools">Mobile DevTools</h3>
+<pre><code>javascript: void(() =&gt; {
+    const script = document.createElement(&#39;script&#39;);
+    script.crossOrigin = &#39;anonymous&#39;;
+    script.integrity = &#39;sha256-Zz2LCa5JP/pTvQZgI64e/nH4Wp84M2rLGUb2AtrGtPY=&#39;;
+    script.onload = () =&gt; eruda.init();
+    script.src = &#39;https://cdn.jsdelivr.net/npm/eruda@2.4.1/eruda.js&#39;;
+    document.head.appendChild(script);
+})();</code></pre>
+<hr>
+<h2>Contribute</h2>
+<p>
+    View the source or submit new bookmarklets at <a href="https://github.com/ThomasOrlita/awesome-bookmarklets" target="_blank">ThomasOrlita/awesome-bookmarklets</a>.
+</p>
+</article>
+
+<script>
+  Array.from(document.querySelectorAll('code'))
+  .filter(el=>el.textContent.startsWith('javascript:'))
+  .forEach(el=>{
+      const href = el.textContent;
+      const a = document.createElement('a');
+      a.href = href;
+      a.textContent = href;
+      el.innerText = '';
+      el.appendChild(a);
+  });
+  
+  document.querySelectorAll('h2, h3').forEach(el=>{
+    if(!el.id) return;
+    
+    const a = document.createElement('a');
+    a.href = '#' + el.id;
+    a.className = 'anchor';
+    
+    const octicon = document.createElement('span');
+    octicon.className = 'octicon octicon-link';
+
+    a.append(octicon);
+    el.prepend(a);
+});
+</script>
+</body>
+</html>
