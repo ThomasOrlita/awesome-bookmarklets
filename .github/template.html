@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css" integrity="sha512-Oy18vBnbSJkXTndr2n6lDMO5NN31UljR8e/ICzVPrGpSud4Gkckb8yUpqhKuUNoE+o9gAb4O/rAxxw1ojyUVzg==" crossorigin="anonymous">
+  <title>$if(title-prefix)$$title-prefix$ – $endif$$pagetitle$</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔖</text></svg>">
+  <style>
+    body {
+      box-sizing: border-box;
+      min-width: 16em;
+      max-width: 64em;
+      margin: 0 auto;
+      padding: 2.5em;
+    }
+    a[href^=javascript], a[href^=data] {
+      font-family: monospace;
+    }
+    .markdown-body hr {
+      margin: 4em 0;
+    }
+    @media (prefers-color-scheme: dark) {
+      html {
+        color-scheme: dark;
+        background-color: #181a1b;
+      }
+      .markdown-body {
+        color: #cecac3;
+      }
+      .markdown-body h1, .markdown-body h2 {
+        border-bottom-color: #353a3c;
+      }
+      .markdown-body pre {
+        background-color: #272a2c;
+      }
+      .markdown-body hr {
+        background-color: #272a2c;
+      }
+      .markdown-body a {
+        color: #4cacfc;
+      }
+      .markdown-body .anchor .octicon-link::before {
+        filter: invert(1);
+      }
+    }
+  </style>
+$for(header-includes)$
+  $header-includes$
+$endfor$
+</head>
+<body class="markdown-body">
+<article>
+$body$
+<hr>
+<h2>Contribute</h2>
+<p>
+    View the source or submit new bookmarklets at <a href="https://github.com/ThomasOrlita/awesome-bookmarklets" target="_blank">ThomasOrlita/awesome-bookmarklets</a>.
+</p>
+</article>
+
+<script>
+  Array.from(document.querySelectorAll('code'))
+  .filter(el=>el.textContent.startsWith('javascript:'))
+  .forEach(el=>{
+      const href = el.textContent;
+      const a = document.createElement('a');
+      a.href = href;
+      a.textContent = href;
+      el.innerText = '';
+      el.appendChild(a);
+  });
+  
+  document.querySelectorAll('h2, h3').forEach(el=>{
+    if(!el.id) return;
+    
+    const a = document.createElement('a');
+    a.href = '#' + el.id;
+    a.className = 'anchor';
+    
+    const octicon = document.createElement('span');
+    octicon.className = 'octicon octicon-link';
+
+    a.append(octicon);
+    el.prepend(a);
+});
+</script>
+</body>
+</html>
