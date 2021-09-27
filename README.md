@@ -21,7 +21,7 @@ These bookmarklets transform a text taken as input and do not load any external 
         }
     })()
 
-### BtoA: base64 to text
+### BtoA: text to base64
     javascript: void(() => {
         try {
             prompt('Encoded text:', btoa(prompt('Encode text as base64:') ?? (function() {
