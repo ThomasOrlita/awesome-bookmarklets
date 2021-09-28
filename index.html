@@ -155,7 +155,7 @@
 <pre><code>javascript: void(() =&gt; {
     open(&#39;https://google.com/search?q=&#39; + encodeURIComponent(getSelection().toString().length === 0 ? prompt(&#39;Query to search:&#39;) ?? (function() {throw null;}()) : getSelection().toString()));
 })()</code></pre>
-<h3 id="search-selection-using-a-search-enging-only-on-the-current-domain">Search selection using a search enging only on the current domain</h3>
+<h3 id="search-selection-using-a-search-engine-only-on-the-current-domain">Search selection using a search engine only on the current domain</h3>
 <pre><code>javascript: void(() =&gt; {
     open(&#39;https://google.com/search?q=site:&#39; + location.hostname + &#39; &#39; + encodeURIComponent(getSelection().toString().length === 0 ? prompt(&#39;Query to search on &#39; + location.hostname + &#39;:&#39;) ?? (function() {throw null;}()) : getSelection().toString()));
 })();</code></pre>
@@ -179,7 +179,7 @@
 <h3 id="open-alexa-site-info">Open Alexa Site Info</h3>
 <pre><code>javascript:void(open(&#39;https://www.alexa.com/siteinfo/&#39; + location.hostname));</code></pre>
 <h3 id="open-this-page-in-web-archive">Open this page in Web Archive</h3>
-<pre><code>javascript:void(open(&#39;https://web.archive.org/web/*/&#39; + encodeURIComponent(location.href)));</code></pre>
+<pre><code>javascript:void(open(&#39;https://web.archive.org/web/*/&#39; + decodeURIComponent(location.href)));</code></pre>
 <h3 id="open-this-page-in-archiveis">Open this page in archive.is</h3>
 <pre><code>javascript:void(open(&#39;https://archive.is/search/?q=&#39; + encodeURIComponent(location.href)));</code></pre>
 <h3 id="open-this-page-in-google-web-cache">Open this page in Google Web Cache</h3>
