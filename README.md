@@ -132,7 +132,7 @@ These bookmarklets modify the content of the page and do not load any external r
         open('https://google.com/search?q=' + encodeURIComponent(getSelection().toString().length === 0 ? prompt('Query to search:') ?? (function() {throw null;}()) : getSelection().toString()));
     })()
 
-### Search selection using a search enging only on the current domain
+### Search selection using a search engine only on the current domain
     javascript: void(() => {
         open('https://google.com/search?q=site:' + location.hostname + ' ' + encodeURIComponent(getSelection().toString().length === 0 ? prompt('Query to search on ' + location.hostname + ':') ?? (function() {throw null;}()) : getSelection().toString()));
     })();
@@ -165,7 +165,7 @@ These bookmarklets open an external site with some information from the current 
     javascript:void(open('https://www.alexa.com/siteinfo/' + location.hostname));
 
 ### Open this page in Web Archive
-    javascript:void(open('https://web.archive.org/web/*/' + encodeURIComponent(location.href)));
+    javascript:void(open('https://web.archive.org/web/*/' + decodeURIComponent(location.href)));
 
 ### Open this page in archive.is
     javascript:void(open('https://archive.is/search/?q=' + encodeURIComponent(location.href)));
