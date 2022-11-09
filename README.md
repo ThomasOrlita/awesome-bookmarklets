@@ -179,6 +179,8 @@ These bookmarklets open an external site with some information from the current 
 ### Is it down?
     javascript:void(open('https://downforeveryoneorjustme.com/' + location.hostname));
 
+### Follow a Mastodon user on your instance (`[INSTANCE HOSTNAME]`)
+    javascript:location.href='https://[INSTANCE HOSTNAME]/authorize_interaction?uri='+document.querySelector("h1 > small").innerText
 
 ---
 
