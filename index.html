@@ -188,6 +188,8 @@
 <pre><code>javascript:void(open(&#39;https://developers.google.com/speed/pagespeed/insights/?url=&#39; + encodeURIComponent(location.href)));</code></pre>
 <h3 id="is-it-down">Is it down?</h3>
 <pre><code>javascript:void(open(&#39;https://downforeveryoneorjustme.com/&#39; + location.hostname));</code></pre>
+<h3 id="follow-a-mastodon-user-on-your-instance-instance-hostname">Follow a Mastodon user on your instance (<code>[INSTANCE HOSTNAME]</code>)</h3>
+<pre><code>javascript:location.href=&#39;https://[INSTANCE HOSTNAME]/authorize_interaction?uri=&#39;+document.querySelector(&quot;h1 &gt; small&quot;).innerText</code></pre>
 <hr />
 <h2 id="remote-script-bookmarklets">Remote script bookmarklets</h2>
 <p>⚠ These bookmarklets modify the content of the page using an external script. Make sure you trust and understand the source code before running it on a sensitive website.</p>
