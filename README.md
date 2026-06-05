@@ -100,6 +100,10 @@ These bookmarklets modify the content of the page and do not load any external r
 ### contentEditable
     javascript:void(document.body.contentEditable=true)
 
+### Fullscreen
+
+    javascript:document.body.requestFullscreen()
+
 ### Invert colors (quick dark theme)
     javascript:(function(){document.documentElement.style.filter='invert(1)';})();
 
